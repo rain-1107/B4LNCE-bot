@@ -4,9 +4,18 @@ import sys
 
 INTENTS = discord.Intents.default()
 # INTENTS.members = True \\ This line breaks this script but is needed for whitelist check
-TOKEN = "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.d08CM0SZ8ANtqoZfK6mqeIStWu8"
 CLIENT = discord.Client(intents=INTENTS)
 JSON_PATH = "assets\\data.json"
+
+try:
+    with open("assets\\my_config.json", "r") as config:
+        TOKEN = config["token"]
+except:
+    with open("assets\\config.json", "r") as config:
+        TOKEN = configp["token"]
+    if TOKEN == "Add bot token here":
+        print("Add token to 'config.json'")
+        sys.exit()
 with open(JSON_PATH, "r") as json_file:
     DATA = json.load(json_file)
 
