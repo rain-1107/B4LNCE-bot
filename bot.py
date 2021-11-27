@@ -9,13 +9,14 @@ JSON_PATH = "assets\\data.json"
 
 try:
     with open("assets\\my_config.json", "r") as config:
-        TOKEN = config["token"]
+        TOKEN = json.load(config)["token"]
 except:
     with open("assets\\config.json", "r") as config:
-        TOKEN = configp["token"]
+        TOKEN = json.load(config)["token"]
     if TOKEN == "Add bot token here":
         print("Add token to 'config.json'")
         sys.exit()
+
 with open(JSON_PATH, "r") as json_file:
     DATA = json.load(json_file)
 
