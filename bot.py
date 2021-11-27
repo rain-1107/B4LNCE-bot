@@ -4,7 +4,7 @@ import sys
 
 TOKEN = "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.d08CM0SZ8ANtqoZfK6mqeIStWu8"
 CLIENT = discord.Client()
-JSON_PATH = "C:\\Users\\funfu\\PycharmProjects\\discordBot\\B4LNCE\\bin\\data.json"
+JSON_PATH = "assets\\data.json"
 with open(JSON_PATH, "r") as json_file:
     DATA = json.load(json_file)
 
@@ -16,10 +16,24 @@ async def role_colour(message):
     return highest.colour
 
 
+def save():
+with open(JSON_PATH, "w") as json_file:
+    json.dump(DATA, json_file, indent=2)
+
+
+def is_admin(user: discord.User):
+    for admin in DATA["general"]["admin_ids"]:
+        if user.id == admin:
+            return True
+    return False
+
+
 @CLIENT.event
 async def on_ready():
     print(CLIENT.user.name+" is online.")
     await CLIENT.change_presence(activity=discord.Game(name="!help"))
+    guilds = await CLIENT.fetch_guilds()
+    print(guilds)
 
 
 @CLIENT.event
@@ -31,18 +45,6 @@ async def on_message(message):
             if len(command) >= 2:
                 args = command[1:]
             await HANDLER.handle(command[0], message, *args)
-
-
-def save():
-    with open(JSON_PATH, "w") as json_file:
-        json.dump(DATA, json_file, indent=2)
-
-
-def is_admin(user: discord.User):
-    for admin in DATA["general"]["admin_ids"]:
-        if user.id == admin:
-            return True
-    return False
 
 
 class CommandHandle:
