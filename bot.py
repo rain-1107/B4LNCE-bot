@@ -2,8 +2,10 @@ import discord
 import json
 import sys
 
+INTENTS = discord.Intents.default()
+# INTENTS.members = True \\ This line breaks this script but is needed for whitelist check
 TOKEN = "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.d08CM0SZ8ANtqoZfK6mqeIStWu8"
-CLIENT = discord.Client()
+CLIENT = discord.Client(intents=INTENTS)
 JSON_PATH = "assets\\data.json"
 with open(JSON_PATH, "r") as json_file:
     DATA = json.load(json_file)
@@ -30,7 +32,9 @@ def is_admin(user: discord.User):
 
 @CLIENT.event
 async def on_ready():
-    print(f"{BOT.name} is online.")
+    global BOT
+    BOT = CLIENT.user
+    print(f"{BOT} is online.")
     await CLIENT.change_presence(activity=discord.Game(name="!help"))
     guilds = await CLIENT.fetch_guilds().flatten()
     if len(guilds) > 1:
@@ -39,6 +43,34 @@ async def on_ready():
             if guild.id != DATA["general"]["guild"]:
                 print(f"{BOT.name} left server: {guild.id}")
                 await guild.leave()
+    guilds = await CLIENT.fetch_guilds().flatten()
+    for guild in guilds:
+        print(f"Confirming whitelist in server: {guild.name}")
+        members = guild.members
+        if members == []:
+            print("Bot has not been set up correctly cannot confirm whitelist")
+        for member in members:
+            print(member.name)
+            if member.id not in DATA["general"]["whitelist"]:
+                print(f"{member.user} not whitelisted, kicking from server")
+                try:
+                    print(f"{member.user} was kicked from server")
+                    await member.kick(reason="User not whitelisted")
+                except:
+                    print("error: could not kick user from server")
+
+
+@CLIENT.event
+async def on_member_join(member):
+    print(f"User: {member.user} joined server")
+    if member.id not in DATA["general"]["whitelist"]:
+        print(f"{member.user} not whitelisted, kicking from server")
+        try:
+            print(f"{member.user} was kicked from server")
+            await member.kick(reason="User is not whitelisted")
+        except:
+            print("error: could not kick user from server")
+
 
 
 @CLIENT.event
@@ -194,5 +226,6 @@ class CommandHandle:
 HANDLER = CommandHandle()
 
 if __name__ == "__main__":
+    BOT = None
     CLIENT.run(TOKEN)
-    BOT = CLIENT.user
+    
