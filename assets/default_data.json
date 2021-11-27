@@ -1,9 +1,5 @@
 {
-  "todo": [
-    "TM Create timeline",
-    "DE Create design sketches",
-    "ALL Ideas for bot features"
-  ],
+  "todo": [],
   "commands": {
     "help": "Where you are now.",
     "echo": "Repeats any arguments passed",
@@ -17,18 +13,9 @@
   },
   "general": {
     "prefix": "!",
-    "admin_ids": [
-      452603675689615360,
-      687364328105574422
-    ],
-    "whitelist": [
-      452603675689615360,
-      455436573182394378,
-      738096354521251910,
-      913513222567497759,
-      757532003825483837,
-      687364328105574422
-    ],
-    "guild": 905492845115351080
+    "admin_ids": [],
+    "whitelist": [],
+    "guild": 0,
+    "console": 0
   }
 }
