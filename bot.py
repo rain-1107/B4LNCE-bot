@@ -238,4 +238,3 @@ HANDLER = CommandHandle()
 if __name__ == "__main__":
     BOT = None
     CLIENT.run(TOKEN)
-    
