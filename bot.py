@@ -17,8 +17,8 @@ async def role_colour(message):
 
 
 def save():
-with open(JSON_PATH, "w") as json_file:
-    json.dump(DATA, json_file, indent=2)
+    with open(JSON_PATH, "w") as json_file:
+        json.dump(DATA, json_file, indent=2)
 
 
 def is_admin(user: discord.User):
@@ -30,10 +30,23 @@ def is_admin(user: discord.User):
 
 @CLIENT.event
 async def on_ready():
-    print(CLIENT.user.name+" is online.")
+    print(f"{BOT.name} is online.")
     await CLIENT.change_presence(activity=discord.Game(name="!help"))
-    guilds = await CLIENT.fetch_guilds()
-    print(guilds)
+    guilds = await CLIENT.fetch_guilds().flatten()
+    if len(guilds) > 1:
+        print(f"{BOT.name} is in more than one server, leaving servers not recognised")
+        for guild in guilds:
+            if guild.id != DATA["general"]["guild"]:
+                print(f"{BOT.name} left server: {guild.id}")
+                await guild.leave()
+
+
+@CLIENT.event
+async def on_guild_join(guild):
+    print(f"{BOT.name} joined a server")
+    if guild.id != DATA["general"]["guild"]:
+        print(f"{guild.name} is not a recognised server, leaving server")
+        await guild.leave()
 
 
 @CLIENT.event
@@ -182,3 +195,4 @@ HANDLER = CommandHandle()
 
 if __name__ == "__main__":
     CLIENT.run(TOKEN)
+    BOT = CLIENT.user
