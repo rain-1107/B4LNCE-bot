@@ -2,16 +2,18 @@ import discord
 import json
 import sys
 
+PATH_START = ""
+
 INTENTS = discord.Intents.default()
 # INTENTS.members = True \\ This line breaks this script but is needed for whitelist check
 CLIENT = discord.Client(intents=INTENTS)
-JSON_PATH = "assets\\data.json"
+JSON_PATH = PATH_START + "assets/data.json"
 
 try:
-    with open("assets\\my_config.json", "r") as config:
+    with open(PATH_START + "assets/my_config.json", "r") as config:
         TOKEN = json.load(config)["token"]
 except:
-    with open("assets\\config.json", "r") as config:
+    with open(PATH_START + "assets/config.json", "r") as config:
         TOKEN = json.load(config)["token"]
     if TOKEN == "Add bot token here":
         print("Add token to 'config.json'")
