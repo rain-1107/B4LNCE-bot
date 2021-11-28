@@ -1,13 +1,14 @@
 import discord
 import json
 import sys
+import random
 
 PATH = "assets/"
 DATA_FILE = "custom_data.json"
 CONFIG_FILE = "custom_config.json"
 
 INTENTS = discord.Intents.default() 
-INTENTS.members = True # This line breaks this script but is needed for whitelist check. Fix later.
+INTENTS.members = True
 CLIENT = discord.Client(intents=INTENTS)
 
 with open(PATH + CONFIG_FILE, "r") as config:
@@ -210,11 +211,11 @@ class CommandHandle:
             else:
                 search = ""
                 for word in args[1:]:
-                    search += word.lower() + " "
+                    search += word + " "
                 search = search[:len(search)-1]
                 matches = []
                 for i, point in enumerate(DATA["todo"]):
-                    if search in point.lower():
+                    if search in point:
                         matches.append(i)
                 s = ""
                 if len(matches) != 1: s = "s"
@@ -229,6 +230,32 @@ class CommandHandle:
                     for i, match in enumerate(matches):
                         embed.add_field(name=f"{i+1}.", value=DATA["todo"][match], inline=False)
                     await message.channel.send(embed=embed)
+
+        elif args[0].lower() == "pick":
+            if len(args) == 1:
+                pick = random.choice(DATA["todo"])
+                await console(f"User: {message.author} used TODO pick command (pick = {pick}))")
+                embed = discord.Embed(title=f"Random TODO Point", colour=await role_colour(message))
+                embed.add_field(name=str(DATA['todo'].index(pick)+1)+".", value=pick)
+                await message.channel.send(embed=embed)
+            else:
+                search = ""
+                for word in args[1:]:
+                    search += word + " "
+                search = search[:len(search)-1]
+                matches = []
+                for i, point in enumerate(DATA["todo"]):
+                    if search in point.lower():
+                        matches.append(i)
+                if not matches:
+                    await console(f"User: {message.author} used TODO pick search command (error = no results))")
+                    await message.channel.send(f"No results for '{search}'")
+                    return
+                pick = random.choice(matches)
+                await console(f"User: {message.author} used TODO pick search command (search = {search}, pick = {pick}))")
+                embed = discord.Embed(title=f"Random TODO Point", colour=await role_colour(message))
+                embed.add_field(name=str(pick+1)+".", value=DATA['todo'][pick])
+                await message.channel.send(embed=embed)
 
     async def exit(self, message):
         if is_admin(message.author):
@@ -249,7 +276,7 @@ class CommandHandle:
                 if args[0].lower() == "clear":
                     DATA["general"]["console"] = 0
                     await console(f"Admin: {message.author.id} used console command (operation = clear)")
-                    await message.channel.send("Console channel has been cleared.")
+                    await message.channel.send("Console channel has been reset.")
                     return
                 try:
                     print(args[0])
