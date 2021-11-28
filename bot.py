@@ -91,7 +91,6 @@ async def on_member_join(member):
             await console("error: could not kick user from server")
 
 
-
 @CLIENT.event
 async def on_guild_join(guild):
     await console(f"{BOT.name} joined a server")
