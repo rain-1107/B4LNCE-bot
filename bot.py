@@ -72,8 +72,8 @@ async def on_ready():
             if member.id not in DATA["general"]["whitelist"]:
                 await console(f"{member.name} not whitelisted, kicking from server")
                 try:
-                    await console(f"{member.name} was kicked from server")
                     await member.kick(reason="User not whitelisted")
+                    await console(f"{member.name} was kicked from server")
                 except:
                     await console("error: could not kick user from server")
 
@@ -115,7 +115,7 @@ async def on_message(message):
 
 class CommandHandle:
     def __init__(self):
-        self.commands = {"ping": self.ping, "echo": self.echo, "help": self.help, "todo": self.todo, "exit": self.exit, "save": self.save ,"console": self.console}
+        self.commands = {"ping": self.ping, "echo": self.echo, "help": self.help, "todo": self.todo, "exit": self.exit, "save": self.save ,"console": self.console, "whitelist": self.whitelist}
 
     async def handle(self, command, *args):
         if command.lower() in self.commands:
@@ -264,7 +264,34 @@ class CommandHandle:
                 await console(f"Admin: {message.author.id} used console command (error = no arguments)")
                 await message.channel.send(f"Please pass an argument to change console channel.")
 
-
+    async def whitelist(self, message, *args):
+        if is_admin(message.author):
+            if len(args) >=2:
+                if args[0].lower() == "add":
+                    try:
+                        DATA["general"]["whitelist"].append(int(args[1]))
+                    except TypeError:
+                        await console(f"Admin: {message.author.id} used whitelist add command (error = invalid ID)")
+                        await message.channel.send(f"Please pass a valid user ID.")
+                    await console(f"Admin: {message.author.id} used whitelist add command (ID = {args[1]})")
+                    await message.channel.send(f"Add '{args[1]} to whitelist'")
+                    return
+                elif args[0].lower() == "remove":
+                    try:
+                        DATA["general"]["whitelist"].pop(DATA["general"]["whitelist"].index(int(args[1])))
+                    except IndexError:
+                        await console(f"Admin: {message.author.id} used whitelist remove command (error = invalid ID)")
+                        await message.channel.send(f"Please pass a valid user ID.")
+                    await console(f"Admin: {message.author.id} used whitelist remove command (ID = {args[1]})")
+                    await message.channel.send(f"Removed '{args[1]} to whitelist'")
+                    return
+            else:
+                embed = discord.Embed(title=f"Whitelist", colour=await role_colour(message))
+                for id in DATA["general"]["whitelist"]:
+                    user = await CLIENT.fetch_user(id)
+                    embed.add_field(name=str(id), value=user.name, inline=False)
+                await message.channel.send(embed=embed)
+                return
 
 
 HANDLER = CommandHandle()
