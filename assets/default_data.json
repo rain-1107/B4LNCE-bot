@@ -4,14 +4,20 @@
     "help": "Where you are now.",
     "echo": "Repeats any arguments passed",
     "ping": "Sends time to respond to command",
-    "todo": "Sends the TODO list. Arguments 'search', 'add' and 'remove' can be passed alongside this command."
+    "todo": "Sends the TODO list",
+    "todo add [description]": "Adds a point to the TODO list.",
+    "todo remove [point number]": "Removes the set point from the TODO list.",
+    "todo search [search]": "Searches through TODO list and returns mathces",
+    "todo pick [optional search]": "Returns random point in TODO list. Search will filter through points then pick (Optional)."
   },
   "admin_commands": {
     "help admin": "Where you are now.",
     "save": "Saves data to JSON file.",
     "exit": "Saves and then closes bot script.",
     "console": "Sets the console channel with an ID.",
-    "whitelist": "Sends whitelist. Use 'add' and 'remove' alongside a user ID to modify the list."
+    "whitelist": "Returns current whitelist.",
+    "whitelist add [user ID]": "Adds user to whitelist.",
+    "whitelist remove [user ID]": "Removes user from whitelist."
   },
   "general": {
     "prefix": "!",
