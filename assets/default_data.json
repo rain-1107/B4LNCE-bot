@@ -9,7 +9,9 @@
   "admin_commands": {
     "help admin": "Where you are now.",
     "save": "Saves data to JSON file.",
-    "exit": "Saves and then closes bot script."
+    "exit": "Saves and then closes bot script.",
+    "console": "Sets the console channel with an ID.",
+    "whitelist": "Sends whitelist. Use 'add' and 'remove' alongside a user ID to modify the list."
   },
   "general": {
     "prefix": "!",

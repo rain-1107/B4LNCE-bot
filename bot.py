@@ -289,7 +289,7 @@ class CommandHandle:
                 embed = discord.Embed(title=f"Whitelist", colour=await role_colour(message))
                 for id in DATA["general"]["whitelist"]:
                     user = await CLIENT.fetch_user(id)
-                    embed.add_field(name=str(id), value=user.name, inline=False)
+                    embed.add_field(name=user.name, value=str(id), inline=False)
                 await message.channel.send(embed=embed)
                 return
 
