@@ -11,17 +11,17 @@ async def role_colour(message):
     return highest.colour
 
 
-async def console(str, data):
+async def console(str, client):
     print(str)
     if DATA["general"]["console"] != 0:
-        guild = await CLIENT.fetch_guild(DATA["general"]["guild"])
+        guild = await client.fetch_guild(DATA["general"]["guild"])
         for channel in await guild.fetch_channels():
             if channel.id == int(DATA["general"]["console"]):
                 await channel.send(str)
                 return
 
 
-def save(path, data):
+def save(path):
     with open(path, "w") as data:
         json.dump(DATA, data, indent=2)
 
