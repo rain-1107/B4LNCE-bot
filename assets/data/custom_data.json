@@ -1,0 +1,45 @@
+{
+"todo": [
+"TM Create timeline",
+"DE Create design sketches",
+"ALL Ideas for bot features",
+"DE Autodesk models"
+],
+"commands": {
+"help": "Where you are now.",
+"echo": "Repeats any arguments passed",
+"ping": "Sends time to respond to command",
+"todo": "Sends the TODO list",
+"todo add [description]": "Adds a point to the TODO list.",
+"todo remove [point number]": "Removes the set point from the TODO list.",
+"todo search [search]": "Searches through TODO list and returns mathces",
+"todo pick [optional search]": "Returns random point in TODO list. Search will filter through points then pick (Optional)."
+},
+"admin_commands": {
+"help admin": "Where you are now.",
+"save": "Saves data to JSON file.",
+"exit": "Saves and then closes bot script.",
+"console [channel ID]": "Sets the console channel.",
+"console clear": "Resets the console channel.",
+"whitelist": "Returns current whitelist.",
+"whitelist add [user ID]": "Adds user to whitelist.",
+"whitelist remove [user ID]": "Removes user from whitelist."
+},
+"general": {
+"prefix": "!",
+"admin_ids": [
+452603675689615360,
+687364328105574422
+],
+"whitelist": [
+452603675689615360,
+913513222567497759,
+687364328105574422,
+757532003825483837,
+455436573182394378,
+738096354521251910
+],
+"guild": 905492845115351080,
+"console": 914570080040407051
+}
+}
