@@ -1,12 +1,15 @@
 import discord
 from assets.scripts.handler import console
-
+from assets.scripts import terminal
+from threading import Thread
+import asyncio
 
 INTENTS = discord.Intents.default() 
 INTENTS.members = True
 CLIENT = discord.Client(intents=INTENTS)
 HANDLER = None
 DATA = {}
+CONFIG = {}
 
 
 @CLIENT.event
@@ -34,6 +37,7 @@ async def on_ready():
                     await console(f"{member.name} was kicked from server", CLIENT)
                 except:
                     await console("error: could not kick user from server", CLIENT)
+    Thread(target=run_2, args=(CLIENT, guilds[0])).start()
 
 
 @CLIENT.event
@@ -70,8 +74,9 @@ async def on_message(message):
             await console(f"Message: {message.id} has no characters.", CLIENT)
 
 
-def run(command_handler, data, token):
-    global HANDLER, DATA
+def run(command_handler, data, config, token):
+    global HANDLER, DATA, CONFIG
     HANDLER = command_handler
     DATA = data
+    CONFIG = config
     CLIENT.run(token)

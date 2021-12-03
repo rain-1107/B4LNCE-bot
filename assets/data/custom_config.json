@@ -1,4 +1,12 @@
 {
 	"bot": "B4LNCE",
-	"token": "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.GwXBYYUyzvDSqprczeUg7uAXjew"
+	"token": "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.GwXBYYUyzvDSqprczeUg7uAXjew",
+	"terminal": {
+		"allow_connection": false,
+		"security": {
+			"private": true,
+			"password": "password",
+			"hash_password": false
+		}
+	}
 }

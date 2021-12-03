@@ -1,4 +1,12 @@
 {
 	"bot": "name",
-	"token" : "Add bot token here"
+	"token" : "Add bot token here",
+	"terminal": {
+		"allow_connection": false,
+		"security": {
+			"private": true,
+			"password": "password",
+			"hash_password": false
+		}
+	}
 }
