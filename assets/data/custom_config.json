@@ -1,8 +1,8 @@
 {
 	"bot": "B4LNCE",
-	"token": "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.GwXBYYUyzvDSqprczeUg7uAXjew",
+	"token": "OTEzNTEzMjIyNTY3NDk3NzU5.YZ_lfA.MDibc5DibalyREBZ-6l1Slr0qLA",
 	"terminal": {
-		"allow_connection": false,
+		"allow_connection": true,
 		"security": {
 			"private": true,
 			"password": "password",

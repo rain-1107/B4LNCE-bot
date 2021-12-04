@@ -3,3 +3,5 @@ assets/data/custom_data.json
 assets/data/custom_config.json
 *.pyc
 *.DS_Store
+*.xml
+.DS_Store
