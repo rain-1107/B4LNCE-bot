@@ -1,4 +1,4 @@
-import threading
+from threading import Thread
 import socket
 import discord
 import asyncio
@@ -10,16 +10,22 @@ class Terminal:
     guild: discord.Guild
     channel: discord.TextChannel
 
-    def __init__(self, bot, loop):
+    def __init__(self, bot):
         self.bot = bot
-        self.loop = loop
+        self.loop = asyncio.new_event_loop()
 
     def run(self):
+        Thread(target=self._thread).start()
+
+    def _thread(self):
+        asyncio.set_event_loop(self.loop)
+        self.loop.create_task(self.forever())
+        self.loop.run_forever()
+
+    async def forever(self):
         while True:
             raw_in = input("> ")
-            loop = asyncio.get_event_loop()
-            info = asyncio.run_coroutine_threadsafe(self.say(905492845115351080, 914570080040407051, raw_in), loop)
-            info.result()
+            await self.say(text=raw_in)
 
     async def say(self, guild_id=905492845115351080, channel_id=914570080040407051, text=""):
         print("ran say")

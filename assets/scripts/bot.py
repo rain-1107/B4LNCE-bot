@@ -37,9 +37,6 @@ async def on_ready():
                     await console(f"{member.name} was kicked from server", CLIENT)
                 except:
                     await console("error: could not kick user from server", CLIENT)
-    loop = asyncio.get_event_loop()
-    if CONFIG["terminal"]["allow_connection"]:
-        terminal.Terminal(CLIENT, loop).run()
 
 
 @CLIENT.event
@@ -84,5 +81,5 @@ def run(command_handler, data, config, token):
     loop = asyncio.get_event_loop()
     loop.create_task(CLIENT.start(token))
     Thread(target=loop.run_forever).start()
-#    if CONFIG["terminal"]["allow_connection"]:
-#        terminal.Terminal(CLIENT, loop).run()
+    if CONFIG["terminal"]["allow_connection"]:
+        terminal.Terminal(CLIENT).run()
