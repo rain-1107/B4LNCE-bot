@@ -1,6 +1,5 @@
 import discord
 from assets.scripts.handler import console
-from assets.scripts import terminal
 from threading import Thread
 import asyncio
 
@@ -81,5 +80,3 @@ def run(command_handler, data, config, token):
     loop = asyncio.get_event_loop()
     loop.create_task(CLIENT.start(token))
     Thread(target=loop.run_forever).start()
-    if CONFIG["terminal"]["allow_connection"]:
-        terminal.Terminal(CLIENT).run()
