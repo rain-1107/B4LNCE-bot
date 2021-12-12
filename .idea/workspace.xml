@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ab87533-3493-4405-a35f-3576f6fe37c0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/B4LNCE-bot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/B4LNCE-bot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/extra/test_asyncio.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/scripts/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/terminal.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

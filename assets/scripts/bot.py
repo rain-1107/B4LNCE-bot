@@ -1,4 +1,5 @@
 import discord
+from assets.scripts import handler
 from assets.scripts.handler import console
 from threading import Thread
 import asyncio
@@ -6,7 +7,7 @@ import asyncio
 INTENTS = discord.Intents.default() 
 INTENTS.members = True
 CLIENT = discord.Client(intents=INTENTS)
-HANDLER = None
+HANDLER: handler.CommandHandle
 DATA = {}
 CONFIG = {}
 
@@ -15,6 +16,7 @@ CONFIG = {}
 async def on_ready():
     await console(f"{CLIENT.user} is online.", CLIENT)
     await CLIENT.change_presence(activity=discord.Game(name="!help"))
+    HANDLER.set_client(CLIENT)
     guilds = await CLIENT.fetch_guilds().flatten()
     if len(guilds) > 1:
         await console(f"{CLIENT.user.name} is in more than one server, leaving servers not recognised", CLIENT)

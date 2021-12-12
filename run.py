@@ -1,7 +1,7 @@
 import json
 import sys
 from threading import Thread
-from assets.scripts import bot, handler, terminal
+from assets.scripts import bot, handler
 
 PATH = "assets/data/"
 DATA_FILE = "custom_data.json"  # This will have to be changed to 'default_data.json'
@@ -19,5 +19,5 @@ with open(PATH + DATA_FILE, "r") as data:
     DATA = json.load(data)
 
 if __name__ == "__main__":
-    HANDLER = handler.init(DATA)
+    HANDLER = handler.init(DATA, PATH + DATA_FILE)
     bot.run(HANDLER, DATA, CONFIG, CONFIG["token"])
